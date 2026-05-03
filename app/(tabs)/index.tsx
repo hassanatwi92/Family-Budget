@@ -153,11 +153,19 @@ useEffect(() => {
   checkUser();
 }, [selectedMonth, selectedYear]);
 
-  const signUp = async () => {
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) return Alert.alert(error.message);
-    Alert.alert("Account created!");
-  };
+const signUp = async () => {
+  const { data, error } = await supabase.auth.signUp({ email, password });
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error) {
+    Alert.alert(error.message);
+    return;
+  }
+
+  Alert.alert("Account created!");
+};
 
   const signIn = async () => {
   const { error } = await supabase.auth.signInWithPassword({
