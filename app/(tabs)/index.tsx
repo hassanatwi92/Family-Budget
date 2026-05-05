@@ -153,7 +153,7 @@ useEffect(() => {
   checkUser();
 }, [selectedMonth, selectedYear]);
 
-const signUp = async () => {
+ const signUp = async () => {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
   console.log("DATA:", data);
@@ -302,78 +302,7 @@ const addTransaction = async () => {
     </View>
   ))}
 
-  {/* ================= MONTH PICKER ================= */}
-<View style={{
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: 10,
-  borderWidth: 1,
-  borderRadius: 10,
-  marginVertical: 10
-}}>
-  <Pressable onPress={() => setSelectedYear(selectedYear - 1)}>
-    <Text>⬅️ Previous Year</Text>
-  </Pressable>
 
-  <Text style={{ fontWeight: "bold" }}>
-    Year: {selectedYear}
-  </Text>
-
-  <Pressable onPress={() => setSelectedYear(selectedYear + 1)}>
-    <Text>Next Year ➡️</Text>
-  </Pressable>
-
-</View>
-
-  <Pressable
-  onPress={() => setShowMonthDropdown(!showMonthDropdown)}
-  style={{ borderWidth: 1, padding: 12, borderRadius: 8, marginBottom: 12 }}
->
-  <Text>
-    Search by 📅 {selectedMonth === -1 ? "All Months" : `Month ${selectedMonth + 1}`}
-  </Text>
-</Pressable>
-
-
-  {/* ================= SEARCH ================= */}
-  <TextInput
-    placeholder="🔍 Search..."
-    value={search}
-    onChangeText={setSearch}
-    style={{
-      borderWidth: 1,
-      marginBottom: 12,
-      padding: 8,
-      borderRadius: 8,
-    }}
-  />
-
-
-{showMonthDropdown && (
-  <View style={{ borderWidth: 1, borderRadius: 8, marginBottom: 12 }}>
-    {[
-      "All Months",
-      "January","February","March","April","May","June",
-      "July","August","September","October","November","December"
-    ].map((label, index) => {
-      const value = index === 0 ? -1 : index - 1;
-
-      return (
-        <Pressable
-          key={label}
-          onPress={() => {
-            setSelectedMonth(value);
-            setShowMonthDropdown(false);
-          }}
-          style={{ padding: 10 }}
-        >
-          <Text>{label}</Text>
-        </Pressable>
-      );
-    })}
-  </View>
-)}
   {/* ================= DATE PICKER ================= */}
 <Pressable
   onPress={() => setShowTypeDropdown(!showTypeDropdown)}
@@ -430,14 +359,14 @@ const addTransaction = async () => {
     value={amount}
     onChangeText={setAmount}
     keyboardType="numeric"
-    style={{ borderWidth: 1, marginBottom: 12 }}
+    style={{ borderWidth: 3, marginBottom: 12, padding: 7, borderRadius: 8 }}
   />
 
   <TextInput
     placeholder="Description"
     value={desc}
     onChangeText={setDesc}
-    style={{ borderWidth: 1, marginBottom: 12 }}
+    style={{ borderWidth: 3, marginBottom: 12, padding: 7, borderRadius: 8 }}
   />
 
   <TextInput
@@ -447,8 +376,7 @@ const addTransaction = async () => {
     setPayer(text);
     setShowSuggestions(true);
   }}
-  style={{ borderWidth: 1, marginBottom: 12
-   }}
+  style={{ borderWidth: 3, marginBottom: 12, padding: 7, borderRadius: 8 }}
 />
 
 {showSuggestions && payer.length > 0 && (
@@ -472,6 +400,86 @@ const addTransaction = async () => {
 
   {/* ================= SAVE BUTTON ================= */}
   <Button title="Save Transaction" onPress={addTransaction} />
+
+
+  {/* ================= SEARCH ================= */}
+  <TextInput
+    placeholder="🔍 Search..."
+    value={search}
+    onChangeText={setSearch}
+    style={{
+      borderWidth: 1,
+      marginBottom: 12,
+      padding: 8,
+      borderRadius: 8,
+      marginVertical: 10
+    }}
+  />
+
+
+  {/* ================= MONTH PICKER ================= */}
+<View style={{
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: 10,
+  borderWidth: 1,
+  borderRadius: 10,
+  marginVertical: 10
+}}>
+  <Pressable onPress={() => setSelectedYear(selectedYear - 1)}>
+    <Text>⬅️ Previous Year</Text>
+  </Pressable>
+
+  <Text style={{ fontWeight: "bold" }}>
+    Year: {selectedYear}
+  </Text>
+
+  <Pressable onPress={() => setSelectedYear(selectedYear + 1)}>
+    <Text>Next Year ➡️</Text>
+  </Pressable>
+
+</View>
+
+  <Pressable
+  onPress={() => setShowMonthDropdown(!showMonthDropdown)}
+  style={{ borderWidth: 1, padding: 12, borderRadius: 8, marginBottom: 12 }}
+>
+  <Text>
+    Search by 📅 {selectedMonth === -1 ? "All Months" : `Month ${selectedMonth + 1}`}
+  </Text>
+</Pressable>
+
+
+
+
+
+{showMonthDropdown && (
+  <View style={{ borderWidth: 1, borderRadius: 8, marginBottom: 12 }}>
+    {[
+      "All Months",
+      "January","February","March","April","May","June",
+      "July","August","September","October","November","December"
+    ].map((label, index) => {
+      const value = index === 0 ? -1 : index - 1;
+
+      return (
+        <Pressable
+          key={label}
+          onPress={() => {
+            setSelectedMonth(value);
+            setShowMonthDropdown(false);
+          }}
+          style={{ padding: 10 }}
+        >
+          <Text>{label}</Text>
+        </Pressable>
+      );
+    })}
+  </View>
+)}
+
+
 
   {/* ================= TRANSACTIONS LIST ================= */}
   <Text style={{ marginTop: 20 }}>📄 Transactions:</Text>
