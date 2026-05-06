@@ -258,13 +258,19 @@ const addTransaction = async () => {
   style={{ flex: 1 }}
   contentContainerStyle={{
     padding: 20,
-    paddingTop: 100,
+    paddingTop: 20,
     paddingBottom: 200,
   }}
 >
   {/* ================= DASHBOARD ================= */}
-  <Text>🏠 Dashboard</Text>
-
+<Text style={{ 
+  fontSize: 20,
+  fontWeight: "bold",
+  textAlign: "center",
+  marginVertical: 15
+}}>
+  🏠 welcome to Family Budget
+</Text>
   <Text>Selected Date: {date}</Text>
 
   <View style={[styles.card, styles.income]}>
@@ -306,7 +312,13 @@ const addTransaction = async () => {
   {/* ================= DATE PICKER ================= */}
 <Pressable
   onPress={() => setShowTypeDropdown(!showTypeDropdown)}
-  style={{ borderWidth: 1, padding: 12, borderRadius: 8, marginBottom: 12 }}
+  style={{
+    borderWidth: 1,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    backgroundColor: type === "expense" ? "#f8d7da" : "#d4edda",
+  }}
 >
   <Text>
     {type === "expense" ? "💸 Expense" : "💰 Income"}
